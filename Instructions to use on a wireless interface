@@ -1,0 +1,24 @@
+To use the software on wireless interface
+
+•	The packets sent to the wireless interface (as described in the code cannot be captured using Wireshark. The code is implemented in a way that the packet header gets replaced by a user defined address. For the packet to get redirected, it has to pass through a router.
+•	To demonstrate the above functionality, the following code should be added
+
+
+Part 1 – where the header gets edited; after calling the functions from the native library.
+o	String string_destination_mac = "xx:xx:xx:xx:xx:" (your device wireless interface IP address);
+o	byte [] new_string_destination_mac = parse_string_MAC_Address(string_destination_mac);
+o	byte[] string_dest_mac = string_destination_mac.getBytes();
+Part 2 -  a new function called parse_string_MAC_Address outside the main class
+o	public static byte[] parseMacAddress(String macAddress) 
+o	{
+o	        String[] MAC_Address_bytes = MAC_Address.split(":");
+o	        byte[] MAC_Address_parsed = new byte[bytes.length];
+o	
+o	        for (int x = 0; x < bytes.length; x++) {
+o	            BigInteger temp = new BigInteger(bytes[x], 16);
+o	            byte[] raw = temp.toByteArray();
+o	            MAC_Address_parsed [x] = raw[raw.length - 1];
+o	        }
+o	        return MAC_Address_parsed;
+o	    }
+
